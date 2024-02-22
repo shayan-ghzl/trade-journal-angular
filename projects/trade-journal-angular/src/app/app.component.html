@@ -1,0 +1,15 @@
+<input type="text" placeholder="email" [(ngModel)]="email">
+<input type="text" placeholder="password" [(ngModel)]="password">
+<input type="text" placeholder="key" [(ngModel)]="key">
+<input type="text" placeholder="secret" [(ngModel)]="secret">
+<input type="text" placeholder="session name" [(ngModel)]="sessionName">
+<input type="text" placeholder="session description" [(ngModel)]="sessionDescription">
+<hr>
+<button type="button" (click)="login()">login</button>
+<button type="button" (click)="loginVerify()">login verify</button>
+<hr>
+<button type="button" (click)="register()">register</button>
+<button type="button" (click)="registerVerify()">register verify</button>
+<hr>
+<button type="button" (click)="setSession()">set session</button>
+<button type="button" (click)="getSession()">get session</button>
