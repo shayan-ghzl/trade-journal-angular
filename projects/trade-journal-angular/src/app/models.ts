@@ -6,7 +6,7 @@ export interface IQuery {
     [param: string]: string | number | boolean;
 }
 
-export interface IQueryRegister extends IQuery {
+export interface IParamRegister extends IParam {
     email: string;
 }
 
@@ -15,7 +15,7 @@ export interface IParamLogin extends IParam {
     password: string;
 }
 
-export interface IQueryRegisterVerify extends IQuery {
+export interface IParamRegisterVerify extends IParam {
     key: string;
     password: string;
     secret: string;
@@ -26,7 +26,7 @@ export interface IParamLoginVerify extends IQuery {
     secret: string;
 }
 
-export interface IQuerySessions extends IQuery {
+export interface IParamSessions extends IParam {
     sessionId: string;
     name: string;
     description: string;

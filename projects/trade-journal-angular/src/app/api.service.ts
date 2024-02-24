@@ -1,14 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpDownloadProgressEvent, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of, tap } from 'rxjs';
-import { IParamLogin, IParamLoginVerify, IQueryRegister, IQueryRegisterVerify, IQuerySessions } from './models';
+import { catchError, filter, of, tap } from 'rxjs';
+import { IParamLogin, IParamLoginVerify, IParamRegister, IParamRegisterVerify, IParamSessions } from './models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  baseUrl = 'http://168.119.99.40:8080';
+  baseUrl = 'http://188.34.165.249:8080';
 
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' + localStorage.getItem('token') || '',
@@ -36,34 +36,28 @@ export class ApiService {
     );
   }
 
-  postRegister(query: IQueryRegister) {
+  postRegister(param: IParamRegister) {
     const url = this.baseUrl + '/register';
 
-    const queries = new HttpParams().appendAll(query);
-
-    return this.http.post<any>(url, null, { params: queries }).pipe(
+    return this.http.post<any>(url, param).pipe(
       tap(console.log),
       catchError(() => of<false>(false))
     );
   }
 
-  postRegisterVerify(query: IQueryRegisterVerify) {
+  postRegisterVerify(param: IParamRegisterVerify) {
     const url = this.baseUrl + '/register/verify';
 
-    const queries = new HttpParams().appendAll(query);
-
-    return this.http.post<any>(url, null, { params: queries }).pipe(
+    return this.http.post<any>(url, param).pipe(
       tap(console.log),
       catchError(() => of<false>(false))
     );
   }
 
-  postSessions(query: IQuerySessions) {
+  postSessions(param: IParamSessions) {
     const url = this.baseUrl + '/sessions';
 
-    const queries = new HttpParams().appendAll(query);
-
-    return this.http.post<any>(url, null, { headers: this.headers, params: queries }).pipe(
+    return this.http.post<any>(url, param, { headers: this.headers }).pipe(
       tap(console.log),
       catchError(() => of<false>(false))
     );
@@ -72,8 +66,24 @@ export class ApiService {
   getSessions() {
     const url = this.baseUrl + '/sessions';
 
-    return this.http.get<any>(url, { headers: this.headers }).pipe(
-      tap(console.log),
+    const options: {
+      headers: HttpHeaders;
+      observe: 'events';
+      reportProgress: boolean;
+      responseType: 'text';
+    } = {
+      headers: this.headers,
+      observe: 'events',
+      reportProgress: true,
+      responseType: 'text',
+    };
+
+    return this.http.get(url, options).pipe(
+      filter<HttpEvent<string>>((response: HttpEvent<string>) => response.type === HttpEventType.DownloadProgress),
+      tap((response) => {
+        const value = (<HttpDownloadProgressEvent>response).partialText || '[]';
+        console.log(value);
+      }),
       catchError(() => of<false>(false))
     );
   }

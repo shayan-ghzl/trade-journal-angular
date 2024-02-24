@@ -31,7 +31,7 @@ export class AppComponent {
       password: this.password,
     }).pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
@@ -44,7 +44,7 @@ export class AppComponent {
       secret: this.secret
     }).pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
@@ -56,7 +56,7 @@ export class AppComponent {
       email: this.email
     }).pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
@@ -70,7 +70,7 @@ export class AppComponent {
       secret: this.secret
     }).pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
@@ -84,7 +84,7 @@ export class AppComponent {
       description: this.sessionDescription
     }).pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
@@ -94,7 +94,7 @@ export class AppComponent {
   getSession() {
     this.apiService.getSessions().pipe(
       tap({
-        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#00ff00;'); },
+        next: (response) => { console.log('%cstatus of this request is : Ok', 'font-size:16px;font-weight:bold;color:#198754;'); },
         error: (error) => { console.log('%cstatus of this request is : Error', 'font-size:16px;font-weight:bold;color:#ff0000;'); },
         complete: () => { console.log('status of this request is : Complete'); },
       })
