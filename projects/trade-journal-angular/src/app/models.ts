@@ -21,7 +21,7 @@ export interface IParamRegisterVerify extends IParam {
     secret: string;
 }
 
-export interface IParamLoginVerify extends IQuery {
+export interface IParamLoginVerify extends IParam {
     key: string;
     secret: string;
 }

@@ -1,21 +1,27 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { tap } from 'rxjs';
+import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimental';
+import { injectQuery, injectQueryClient } from '@tanstack/angular-query-experimental';
+import { lastValueFrom, tap } from 'rxjs';
+import { ApiQueryService } from './api-query.service';
 import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    AngularQueryDevtools,
+    JsonPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
 
-  email = '';
-  password = '';
+  email = 'shayan97.tti@gmail.com';
+  password = 'Hotel12345';
   key = '';
   secret = '';
   sessionName = '';
@@ -23,7 +29,18 @@ export class AppComponent {
 
   constructor(
     private apiService: ApiService,
+    private apiQueryService: ApiQueryService,
   ) { }
+
+  postsQuery = injectQuery(() => ({
+    queryKey: ['posts'],
+    queryFn: () => lastValueFrom(this.apiQueryService.postLogin$({
+      email: this.email,
+      password: this.password,
+    })),
+  }));
+
+  queryClient = injectQueryClient();
 
   login() {
     this.apiService.postLogin({

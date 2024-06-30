@@ -1,6 +1,8 @@
-import { HttpClient, HttpDownloadProgressEvent, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { catchError, filter, of, tap } from 'rxjs';
+// import { HttpClient, HttpDownloadProgressEvent, HttpEvent, HttpEventType, HttpHeaders } from '../shared/http';
+import { HttpClient, HttpDownloadProgressEvent, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { IParamLogin, IParamLoginVerify, IParamRegister, IParamRegisterVerify, IParamSessions } from './models';
 
 @Injectable({
@@ -11,11 +13,12 @@ export class ApiService {
   baseUrl = 'http://188.34.165.249:8080';
 
   private headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + localStorage.getItem('token') || '',
+    'Authorization': 'Bearer ' + (localStorage.getItem('token') || ''),
   });
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    // private fetchBackend: FetchBackend,
   ) { }
 
   postLogin(param: IParamLogin) {
@@ -62,7 +65,7 @@ export class ApiService {
       catchError(() => of<false>(false))
     );
   }
-
+  
   getSessions() {
     const url = this.baseUrl + '/sessions';
 
@@ -79,7 +82,7 @@ export class ApiService {
     };
 
     return this.http.get(url, options).pipe(
-      filter<HttpEvent<string>>((response: HttpEvent<string>) => response.type === HttpEventType.DownloadProgress),
+      filter<HttpEvent<any>>((response: HttpEvent<any>) => response.type === HttpEventType.DownloadProgress),
       tap((response) => {
         const value = (<HttpDownloadProgressEvent>response).partialText || '[]';
         console.log(value);
@@ -87,5 +90,32 @@ export class ApiService {
       catchError(() => of<false>(false))
     );
   }
+
+  // getSessionsFetch() {
+  //   const url = this.baseUrl + '/sessions';
+
+  //   const options: {
+  //     headers: HttpHeaders;
+  //     observe: 'events';
+  //     reportProgress: boolean;
+  //     responseType: 'text';
+  //   } = {
+  //     headers: this.headers,
+  //     observe: 'events',
+  //     reportProgress: true,
+  //     responseType: 'text',
+  //   };
+
+  //   const GET_FETCH = new HttpRequest('GET', url, null, options);
+
+  //   return this.fetchBackend.handle(GET_FETCH).pipe(
+  //     filter<HttpEvent<string>>((response: HttpEvent<string>) => response.type === HttpEventType.DownloadProgress),
+  //     tap((response) => {
+  //       const value = (<HttpDownloadProgressEvent>response).partialText || '[]';
+  //       console.log(value);
+  //     }),
+  //     catchError(() => of<false>(false))
+  //   );
+  // }
 
 }

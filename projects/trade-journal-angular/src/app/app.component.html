@@ -13,3 +13,17 @@
 <hr>
 <button type="button" (click)="setSession()">set session</button>
 <button type="button" (click)="getSession()">get session</button>
+<hr>
+<angular-query-devtools initialIsOpen />
+<hr>
+<!-- @if (postsQuery.status() === 'pending') {
+Loading...
+} @else if (postsQuery.status() === 'error') {
+Error: {{ postsQuery.error()?.message }}
+}
+@if (postsQuery.data(); as post) {
+<pre>{{ post | json }}</pre>
+@if (postsQuery.isFetching()) {
+Background Updating...
+}
+} -->
